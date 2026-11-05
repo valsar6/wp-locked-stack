@@ -8,6 +8,7 @@ parameters:
         - packages/fixed-term-access
         - packages/stack-theme
         - tools/stack-verify
+        - tools/release-checks
         - tests/php
     excludePaths:
         - tools/stack-verify/stubs

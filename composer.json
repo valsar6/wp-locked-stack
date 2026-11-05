@@ -37,6 +37,7 @@
         "psr-4": {
             "FixedTermAccess\\": "packages/fixed-term-access/src/",
             "LockedStack\\Verify\\": "tools/stack-verify/src/",
+            "LockedStack\\ReleaseChecks\\": "tools/release-checks/src/",
             "LockedStack\\Tests\\": "tests/php/"
         }
     },
