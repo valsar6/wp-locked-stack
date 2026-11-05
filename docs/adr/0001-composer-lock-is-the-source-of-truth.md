@@ -22,3 +22,4 @@ All plugins and themes, first-party and third-party, are Composer packages recor
 - Core and packages are pinned in two places, so the manifest (ADR 0003) records both.
 - The locked WooCommerce entry has no checksum, so the lockfile alone does not prove content integrity. The tree hash in the manifest covers this from build time onwards, but it cannot vouch for what was downloaded during the build.
 - Licensed plugins need a separate channel (ADR 0005).
+- WP-CLI is pinned by version and checksum in the `Dockerfile`. Renovate does not update it, so that upgrade stays manual.

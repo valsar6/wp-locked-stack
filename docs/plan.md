@@ -27,10 +27,10 @@ One plugin, one theme, one lockfile, one verifier, and a CI that fails on purpos
 
 ### M2: Upgrade flow
 
-- Renovate opens one pull request per plugin update.
-- WooCommerce stubs are checked against the locked WooCommerce version.
-- First-party versions derive from git tags.
-- Pre-deploy backup, explicit database migrations and a smoke test (see ADR 0006).
+- Renovate opens one pull request per plugin update, and a plugin moves together with its stubs.
+- Stubs are checked against the locked WooCommerce and WordPress versions.
+- First-party versions are enforced by tags (see ADR 0007, which changes the original idea of deriving them from tags).
+- Pre-deploy backup, explicit database migrations and a smoke test, with a rollback policy chosen from the manifests (see ADR 0006).
 
 ### M3: Business behaviour under test
 

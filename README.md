@@ -40,10 +40,21 @@ version-mismatch: plugin/woocommerce (expected 11.2.2, found 11.1.0)
 core-version: wordpress (expected 7.1.4, found 7.0.0)
 ```
 
+## Upgrading
+
+Renovate opens a pull request for each plugin update, and CI runs every check against it. After the merge, `bin/deploy.sh <image>` compares manifests and picks a policy:
+
+| Release | Backup and migrations | If it fails |
+|---|---|---|
+| Code only | Skipped | Rolls back automatically, exit 2 |
+| Plugin or core version changed | Backup first, then migrations | Stops for a human decision, exit 3 |
+
 ## Layout
 
 | Path | Contents |
 |---|---|
+| `bin/deploy.sh` | Deploys an image with the policy above |
+| `tools/release-checks` | Checks package versions, tags and stubs |
 | `packages/fixed-term-access` | Demo plugin: a completed order grants access for a number of days |
 | `packages/stack-theme` | Demo theme whose `composer.json` requires the plugin at `^1.1` |
 | `tools/stack-verify` | The verifier, installed outside `wp-content` |
@@ -59,11 +70,12 @@ core-version: wordpress (expected 7.1.4, found 7.0.0)
 3. [Verify the running tree](docs/adr/0003-verify-the-running-tree.md)
 4. [Incompatibility is a build failure](docs/adr/0004-compatibility-is-a-build-failure.md)
 5. [The public repo runs on free software](docs/adr/0005-public-repo-runs-on-free-software.md)
-6. [Rollback does not revert the database](docs/adr/0006-rollback-does-not-revert-the-database.md) (proposed)
+6. [Rollback does not revert the database](docs/adr/0006-rollback-does-not-revert-the-database.md)
+7. [Versions are declared, and tags enforce them](docs/adr/0007-versions-are-declared-and-tags-enforce-them.md)
 
 ## Status
 
-Milestone 1, the walking skeleton. See [the plan](docs/plan.md) for what comes next.
+Milestone 2, the upgrade flow. See [the plan](docs/plan.md) for what comes next.
 
 ## Licence
 
