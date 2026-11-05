@@ -1,9 +1,9 @@
-COMPOSER_IMAGE := composer:2.9@sha256:b09bccd91a78fe8a9ab4b33d707b862e8fe54fec17782e32683ad2a69c46867d
+COMPOSER_IMAGE := $(shell awk '/^FROM composer:/ {print $$2}' Dockerfile)
+RUNTIME_IMAGE := $(shell awk '/^FROM wordpress:/ {print $$2}' Dockerfile)
 TOOLS := docker run --rm -v "$(CURDIR)":/app -w /app \
 	--user $(shell id -u):$(shell id -g) \
 	-e HOME=/tmp -e COMPOSER_HOME=/tmp/composer -e COMPOSER_CACHE_DIR=/app/.cache/composer \
 	--entrypoint "" $(COMPOSER_IMAGE)
-RUNTIME_IMAGE := wordpress:7.1.4-php8.4-apache@sha256:418c95d1d7648ce672415f714b88df2cb1d358552e261771508f5d4ced912c01
 RUNTIME := docker run --rm -v "$(CURDIR)":/app -w /app \
 	--user $(shell id -u):$(shell id -g) -e HOME=/tmp \
 	--entrypoint "" $(RUNTIME_IMAGE)
