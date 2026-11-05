@@ -48,7 +48,6 @@ One plugin, one theme, one lockfile, one verifier, and a CI that fails on purpos
 - Supporting every host. The target is a containerised deployment.
 - Inventing a package manager. Composer does resolution; this repo adds what it does not do.
 
-## Open decisions
+## Evidence policy
 
-- Licence for the repository.
-- Whether the case study can cite real incidents. Until that is cleared, documents describe failure classes only.
+Documents describe failure classes and what this repo's own drills show. They do not cite incidents from other projects.
