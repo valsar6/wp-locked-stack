@@ -1,0 +1,2 @@
+require:
+  - /opt/stack/verify/command.php
