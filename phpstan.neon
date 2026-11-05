@@ -9,6 +9,8 @@ parameters:
         - packages/stack-theme
         - tools/stack-verify
         - tests/php
+    excludePaths:
+        - tools/stack-verify/stubs
     scanFiles:
         - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
-        - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+        - tools/stack-verify/stubs/wp-cli.stub.php
