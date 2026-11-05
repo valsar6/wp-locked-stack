@@ -2,7 +2,7 @@
     "name": "wp-locked-stack/site",
     "description": "A WordPress stack where every plugin version is declared, verified and tested.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "repositories": [
         {
             "type": "path",

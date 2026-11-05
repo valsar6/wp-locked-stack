@@ -64,3 +64,7 @@ core-version: wordpress (expected 7.1.4, found 7.0.0)
 ## Status
 
 Milestone 1, the walking skeleton. See [the plan](docs/plan.md) for what comes next.
+
+## Licence
+
+[MIT](LICENSE)
