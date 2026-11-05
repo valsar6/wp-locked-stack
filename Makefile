@@ -42,6 +42,7 @@ up:
 e2e:
 	sh tests/e2e/run.sh
 	sh tests/e2e/stale-volume.sh
+	sh tests/e2e/deploy.sh
 
 down:
 	docker compose down --volumes
