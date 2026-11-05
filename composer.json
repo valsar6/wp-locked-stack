@@ -1,0 +1,62 @@
+{
+    "name": "wp-locked-stack/site",
+    "description": "A WordPress stack where every plugin version is declared, verified and tested.",
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/*",
+            "options": {
+                "symlink": false
+            }
+        },
+        {
+            "type": "composer",
+            "url": "https://repo.wp-packages.org",
+            "only": [
+                "wp-plugin/*",
+                "wp-theme/*"
+            ]
+        }
+    ],
+    "require": {
+        "php": ">=8.4",
+        "composer/installers": "^2.3",
+        "wp-locked-stack/stack-theme": "^1.0",
+        "wp-plugin/woocommerce": "11.2.2"
+    },
+    "require-dev": {
+        "php-stubs/woocommerce-stubs": "^11.2",
+        "php-stubs/wp-cli-stubs": "^2.12",
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^13.4",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FixedTermAccess\\": "packages/fixed-term-access/src/",
+            "LockedStack\\Verify\\": "tools/stack-verify/src/",
+            "LockedStack\\Tests\\": "tests/php/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        },
+        "platform": {
+            "php": "8.4.1"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "installer-paths": {
+            "build/wp-content/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "build/wp-content/themes/{$name}/": [
+                "type:wordpress-theme"
+            ]
+        }
+    }
+}
