@@ -1,0 +1,11 @@
+{
+    "name": "wp-locked-stack/stack-theme",
+    "description": "Minimal theme that consumes the fixed-term-access API.",
+    "type": "wordpress-theme",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=8.4",
+        "composer/installers": "^2.3",
+        "wp-locked-stack/fixed-term-access": "^1.1"
+    }
+}
