@@ -1,0 +1,38 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended", "docker:pinDigests", "helpers:pinGitHubActionDigests"],
+    "enabledManagers": ["composer", "dockerfile", "docker-compose", "github-actions"],
+    "ignorePaths": ["packages/**"],
+    "dependencyDashboard": true,
+    "prConcurrentLimit": 0,
+    "prHourlyLimit": 0,
+    "rangeStrategy": "update-lockfile",
+    "packageRules": [
+        {
+            "description": "A plugin and the stubs that analyse it must move together.",
+            "matchPackageNames": ["wp-plugin/woocommerce", "php-stubs/woocommerce-stubs"],
+            "groupName": "WooCommerce"
+        },
+        {
+            "description": "Core and its stubs must move together.",
+            "matchPackageNames": ["wordpress", "php-stubs/wordpress-stubs"],
+            "groupName": "WordPress core"
+        },
+        {
+            "description": "Development tools do not change what runs in production.",
+            "matchPackageNames": ["phpstan/phpstan", "phpunit/phpunit", "szepeviktor/phpstan-wordpress"],
+            "groupName": "Development tools"
+        },
+        {
+            "description": "First-party packages are versioned by hand.",
+            "matchPackageNames": ["wp-locked-stack/*"],
+            "enabled": false
+        },
+        {
+            "description": "A database major upgrade needs an explicit decision.",
+            "matchPackageNames": ["mariadb"],
+            "matchUpdateTypes": ["major"],
+            "dependencyDashboardApproval": true
+        }
+    ]
+}

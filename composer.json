@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "php-stubs/woocommerce-stubs": "^11.2",
-        "php-stubs/wp-cli-stubs": "^2.12",
+        "php-stubs/wordpress-stubs": "^7.1",
         "phpstan/phpstan": "^2.3",
         "phpunit/phpunit": "^13.4",
         "szepeviktor/phpstan-wordpress": "^2.0"
@@ -37,6 +37,7 @@
         "psr-4": {
             "FixedTermAccess\\": "packages/fixed-term-access/src/",
             "LockedStack\\Verify\\": "tools/stack-verify/src/",
+            "LockedStack\\ReleaseChecks\\": "tools/release-checks/src/",
             "LockedStack\\Tests\\": "tests/php/"
         }
     },

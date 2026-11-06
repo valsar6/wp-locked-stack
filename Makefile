@@ -1,14 +1,15 @@
-COMPOSER_IMAGE := composer:2.9@sha256:b09bccd91a78fe8a9ab4b33d707b862e8fe54fec17782e32683ad2a69c46867d
+COMPOSER_IMAGE := $(shell awk '/^FROM composer:/ {print $$2}' Dockerfile)
+RUNTIME_IMAGE := $(shell awk '/^FROM wordpress:/ {print $$2}' Dockerfile)
 TOOLS := docker run --rm -v "$(CURDIR)":/app -w /app \
 	--user $(shell id -u):$(shell id -g) \
 	-e HOME=/tmp -e COMPOSER_HOME=/tmp/composer -e COMPOSER_CACHE_DIR=/app/.cache/composer \
+	-e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/app \
 	--entrypoint "" $(COMPOSER_IMAGE)
-RUNTIME_IMAGE := wordpress:7.1.4-php8.4-apache@sha256:418c95d1d7648ce672415f714b88df2cb1d358552e261771508f5d4ced912c01
 RUNTIME := docker run --rm -v "$(CURDIR)":/app -w /app \
 	--user $(shell id -u):$(shell id -g) -e HOME=/tmp \
 	--entrypoint "" $(RUNTIME_IMAGE)
 
-.PHONY: install lock analyse test drills static image up e2e down ci
+.PHONY: install lock analyse test release-checks drills static image up e2e down ci
 
 install:
 	$(TOOLS) composer install --no-interaction --no-scripts
@@ -22,11 +23,15 @@ analyse:
 test:
 	$(RUNTIME) php vendor/bin/phpunit
 
+release-checks:
+	$(TOOLS) php tools/release-checks/bin/check.php
+
 drills:
 	$(TOOLS) sh tests/drills/contract.sh
 	$(TOOLS) sh tests/drills/static-analysis.sh
+	$(TOOLS) sh tests/drills/release-checks.sh
 
-static: install analyse test drills
+static: install analyse test release-checks drills
 
 image:
 	docker compose build wordpress
@@ -37,6 +42,7 @@ up:
 e2e:
 	sh tests/e2e/run.sh
 	sh tests/e2e/stale-volume.sh
+	sh tests/e2e/deploy.sh
 
 down:
 	docker compose down --volumes
